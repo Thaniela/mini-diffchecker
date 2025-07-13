@@ -3,8 +3,8 @@ import { getDiffHtml, readFileAsText } from './diffUtils.js';
 export function setupTextComparison() {
   const compareBtn = document.getElementById('compareBtn');
   compareBtn.addEventListener('click', () => {
-    const text1 = document.getElementById('text1').value;
-    const text2 = document.getElementById('text2').value;
+    const text1 = window.editor1.getValue(); // Monaco now!
+    const text2 = window.editor2.getValue();
 
     const html = getDiffHtml(text1, text2);
     document.getElementById('diffResult').innerHTML = html;

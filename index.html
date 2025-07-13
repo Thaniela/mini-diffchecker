@@ -4,14 +4,23 @@
   <meta charset="UTF-8" />
   <title>Mini Diffchecker</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
 </head>
 <body>
   <h1>Mini Diffchecker</h1>
-
   <section>
-    <h2>Text to Text</h2>
-    <textarea id="text1" rows="10" cols="50" placeholder="Text A"></textarea>
-    <textarea id="text2" rows="10" cols="50" placeholder="Text B"></textarea>
+    <div class="diff-container">
+        <div class="editor-wrapper">
+            <div class="editor-column">
+                <h2>Original Text</h2>
+                <div id="editor1" class="editor"></div>
+            </div>
+            <div class="editor-column">
+                <h2>Changed Text</h2>
+                <div id="editor2" class="editor"></div>
+            </div>
+        </div>
+    </div>
     <br/>
     <button id="compareBtn">Compare Text</button>
     <div id="diffResult" class="diff-output"></div>
@@ -27,6 +36,7 @@
   </section>
 
   <script src="https://unpkg.com/diff-match-patch"></script>
-  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/monacoSetup.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>

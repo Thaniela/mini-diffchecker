@@ -6,6 +6,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -32,6 +33,34 @@ textarea {
   height: 150px;
 }
 
+.diff-container {
+  max-width: 1200px;   /* adjust as needed */
+  margin: 0 auto;      /* center the whole block */
+  padding: 0 20px;     /* some breathing room */
+  box-sizing: border-box;
+}
+
+.editor-wrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;  /* wrap on small screens */
+}
+
+.editor-column {
+  flex: 1;
+  min-width: 0;     /* critical for flex overflow */
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+  width: 100%;
+  height: 400px;     /* or your preferred height */
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 button {
   background: #007bff;
   border: none;
@@ -51,14 +80,17 @@ button:hover {
   padding: 15px;
   margin-top: 15px;
   white-space: pre-wrap;
+  word-break: break-word;
   font-family: monospace;
 }
 
 .diff-output ins {
   background: #d4fcbc;
   text-decoration: none;
+  display: inline;
 }
 
 .diff-output del {
   background: #fbb6c2;
+  display: inline;
 }
