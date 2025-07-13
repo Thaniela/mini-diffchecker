@@ -7,8 +7,8 @@ require(['vs/editor/editor.main'], function () {
     lineNumbers: 'on',
     theme: 'vs',
     automaticLayout: true,
-    minimap: { enabled: false }, // ✅ This removes the right minimap!
-    });
+    minimap: { enabled: false }
+  });
 
   window.editor2 = monaco.editor.create(document.getElementById('editor2'), {
     value: '',
@@ -16,6 +16,14 @@ require(['vs/editor/editor.main'], function () {
     lineNumbers: 'on',
     theme: 'vs',
     automaticLayout: true,
-    minimap: { enabled: false }, // ✅
-    });
+    minimap: { enabled: false }
+  });
+
+  // Initialize the DiffEditor empty — we’ll set the model later
+  window.diffEditor = monaco.editor.createDiffEditor(document.getElementById('diffContainer'), {
+    theme: 'vs',
+    readOnly: true,
+    automaticLayout: true,
+    minimap: { enabled: false }
+  });
 });

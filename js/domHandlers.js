@@ -3,11 +3,16 @@ import { getDiffHtml, readFileAsText } from './diffUtils.js';
 export function setupTextComparison() {
   const compareBtn = document.getElementById('compareBtn');
   compareBtn.addEventListener('click', () => {
-    const text1 = window.editor1.getValue(); // Monaco now!
-    const text2 = window.editor2.getValue();
+    const original = window.editor1.getValue();
+    const modified = window.editor2.getValue();
 
-    const html = getDiffHtml(text1, text2);
-    document.getElementById('diffResult').innerHTML = html;
+    const originalModel = monaco.editor.createModel(original, 'plaintext');
+    const modifiedModel = monaco.editor.createModel(modified, 'plaintext');
+
+    window.diffEditor.setModel({
+      original: originalModel,
+      modified: modifiedModel
+    });
   });
 }
 
