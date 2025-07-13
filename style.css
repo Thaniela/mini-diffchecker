@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+}
+
+textarea {
+  margin: 5px;
+}
+
+button {
+  margin: 10px 0;
+  padding: 5px 10px;
+}
+
+.diff-output {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  white-space: pre-wrap;
+}
+
+.diff-output ins {
+  background: #d4fcbc;
+  text-decoration: none;
+}
+
+.diff-output del {
+  background: #fbb6c2;
+}
