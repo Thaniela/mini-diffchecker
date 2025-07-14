@@ -1,27 +1,81 @@
 :root {
-  --primary-blue: #2E86DE; /* Match your TD logo color */
+  --primary-blue: #2E86DE;
   --background-light: #ffffff;
   --text-dark: #222;
 }
 
 body {
   font-family: Arial, sans-serif;
-  background: var(--background-light);
-  margin: 0;
+  background: #f9f9f9; /* I used the more specific body rule you had below */
+  margin: 0; /* Changed from 40px to 0 to allow the header to be full-width */
   padding: 0;
   overflow-x: hidden;
   color: var(--text-dark);
 }
 
-h1, h2 {
-  color: var(--primary-blue);
+/* ▼▼▼ ADD THESE NEW HEADER STYLES ▼▼▼ */
+
+.main-header {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 10px 40px; /* Provides spacing on the sides */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Adds space between header and the "Mini Diffchecker" H1 */
 }
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 40px;
-  background: #f9f9f9;
-  overflow-x: hidden;
+.header-content {
+  display: flex;
+  justify-content: space-between; /* This pushes the logo and nav to opposite ends */
+  align-items: center;
+  max-width: 1200px; /* Optional: keeps content aligned with the rest of the page */
+  margin: 0 auto;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Removes underline from the link */
+  color: white;
+}
+
+.logo-placeholder {
+  font-weight: bold;
+  font-size: 24px;
+  background-color: white;
+  color: var(--primary-blue);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-right: 15px; /* Space between logo and text */
+}
+
+.system-name {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.main-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; /* Removes bullet points */
+  display: flex;
+  gap: 25px; /* Space between nav items */
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  padding: 5px 0;
+  border-bottom: 2px solid transparent; /* For hover effect */
+  transition: border-color 0.2s;
+}
+
+.main-nav a:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.8);
 }
 
 h1 {
