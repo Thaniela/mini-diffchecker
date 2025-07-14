@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Mini Diffchecker</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./styles/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
 </head>
 
@@ -17,9 +17,9 @@
       </a>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Text</a></li>
-          <li><a href="#">Document</a></li>
-          <li><a href="#">Image</a></li>
+          <li><a href="index.html" class="active-nav">Text</a></li>
+          <li><a href="document.html">Document</a></li>
+          <li><a href="image.html">Image</a></li>
         </ul>
       </nav>
     </div>
@@ -53,14 +53,6 @@
       <h2>Diff Result</h2>
       <div id="diffContainer" class="diff-viewer"></div>
     </div>
-
-  <section>
-    <h2>File to File</h2>
-    <input type="file" id="file1" />
-    <input type="file" id="file2" />
-    <button id="compareFilesBtn">Compare Files</button>
-    <div id="fileDiffResult" class="diff-output"></div>
-  </section>
 
   <!-- Libraries + your modules -->
   <script src="https://unpkg.com/diff-match-patch"></script>

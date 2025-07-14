@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Document Comparison</title>
+  <link rel="stylesheet" href="./styles/document-compare.css" />
+  <link rel="stylesheet" href="./styles/style.css" />
+</head>
+
+<body>
+  <header class="main-header">
+    <div class="header-content">
+      <a href="index.html" class="logo-container">
+        <div class="logo-placeholder">D</div>
+        <span class="system-name">Monaco Diffchecker</span>
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Text</a></li>
+          <li><a href="document.html" class="active-nav">Document</a></li>
+          <li><a href="image.html">Image</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="diff-container">
+    <section class="file-comparison-section">
+      <h2>Compare Documents</h2>
+      <p class="section-subtitle">Upload a .docx, .pdf, or .txt file in each panel to see the difference.</p>
+      
+      <div class="file-comparison-container">
+        <!-- Drop Zone 1 -->
+        <div class="drop-zone" id="drop-zone-1">
+          <input type="file" id="file1" class="hidden-file-input" accept=".docx,.pdf,.txt" />
+            <div class="drop-zone__content">
+                <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <p><strong>Drop original document here</strong></p>
+                <p class="file-types">doc, docx, pdf, etc</p>
+                <div class="upload-button">Upload File</div>
+            </div>
+          <div class="drop-zone__file-display hidden"></div>
+        </div>
+        <!-- Drop Zone 2 -->
+        <div class="drop-zone" id="drop-zone-2">
+          <input type="file" id="file2" class="hidden-file-input" accept=".docx,.pdf,.txt" />
+            <div class="drop-zone__content">
+                <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <p><strong>Drop changed document here</strong></p>
+                <p class="file-types">doc, docx, pdf, etc</p>
+                <div class="upload-button">Upload File</div>
+            </div>
+          <div class="drop-zone__file-display hidden"></div>
+        </div>
+      </div>
+      
+      <div class="compare-files-wrapper">
+        <button id="compareFilesBtn" disabled>Find Difference</button>
+      </div>
+
+      <div id="diffResultWrapper" class="hidden">
+        <h2>Difference Result</h2>
+        <div id="fileDiffResult" class="diff-output"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- External Libraries -->
+  <script src="https://unpkg.com/diff-match-patch"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+  <!-- Your Application Logic -->
+  <script type="module" src="./js/document-compare.js"></script>
+</body>
+</html>

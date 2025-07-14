@@ -73,13 +73,20 @@ body {
   color: white;
   text-decoration: none;
   font-size: 1em;
-  padding: 5px 0;
-  border-bottom: 2px solid transparent; /* For hover effect */
-  transition: border-color 0.2s;
+  padding: 8px 16px; /* Gives the links a larger, button-like click area */
+  border-radius: 5px; /* Adds rounded corners to all links */
 }
 
+/* 2. Hover effect for non-active links */
 .main-nav a:hover {
-  border-bottom-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.15); /* Subtle highlight on hover */
+}
+
+/* 3. The highlighted white box for the active link */
+.main-nav .active-nav {
+  background-color: white;
+  color: var(--primary-blue); /* Use your theme's blue for the text */
+  font-weight: 500; /* A slightly bolder font looks good */
 }
 
 h1 {
@@ -128,6 +135,7 @@ h2 {
   border-radius: 4px;
   box-sizing: border-box;
   transition: border-color 0.2s;
+  overflow: hidden; /* <-- ADD THIS LINE */
 }
 
 .diff-viewer {
@@ -135,6 +143,7 @@ h2 {
   height: 400px;
   margin-top: 20px;
   border: 1px solid #ccc;
+    overflow: hidden; /* <-- ADD THIS LINE */
 }
 
 button {
@@ -201,3 +210,4 @@ button:hover {
 .file-upload:hover {
   text-decoration: underline;
 }
+
