@@ -2,7 +2,11 @@ import { getDiffHtml, readFileAsText } from './diffUtils.js';
 
 export function setupTextComparison() {
   const compareBtn = document.getElementById('compareBtn');
+
+  const diffResultWrapper = document.getElementById('diffResultWrapper');
+  
   compareBtn.addEventListener('click', () => {
+    diffResultWrapper.classList.remove('hidden');
     const original = window.editor1.getValue();
     const modified = window.editor2.getValue();
 

@@ -4,6 +4,10 @@
   --text-dark: #222;
 }
 
+.hidden {
+  display: none;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #f9f9f9; /* I used the more specific body rule you had below */
