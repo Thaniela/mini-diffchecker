@@ -1,6 +1,5 @@
-import { setupTextComparison, setupFileComparison } from './domHandlers.js';
+import { setupFileComparison } from './domHandlers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  setupTextComparison();
   setupFileComparison();
 });

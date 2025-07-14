@@ -4,20 +4,28 @@
   <meta charset="UTF-8" />
   <title>Monaco Diffchecker</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Monaco Loader -->
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
 </head>
+
 <body>
-  <h1>Monaco Diffchecker</h1>
+  <h1>Mini Diffchecker</h1>
 
   <div class="diff-container">
     <div class="editor-wrapper">
       <div class="editor-column">
-        <h2>Original Text</h2>
+        <div class="editor-header">
+          <h2>Original Text</h2>
+          <button id="openFile1" class="open-file-btn">Open File</button>
+          <input type="file" id="fileInput1" class="hidden-file-input" />
+        </div>
         <div id="editor1" class="editor"></div>
       </div>
       <div class="editor-column">
-        <h2>Changed Text</h2>
+        <div class="editor-header">
+          <h2>Changed Text</h2>
+          <button id="openFile2" class="open-file-btn">Open File</button>
+          <input type="file" id="fileInput2" class="hidden-file-input" />
+        </div>
         <div id="editor2" class="editor"></div>
       </div>
     </div>

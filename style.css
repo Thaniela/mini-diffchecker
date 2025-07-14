@@ -52,6 +52,17 @@ h2 {
   flex-direction: column;
 }
 
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.editor-header h2 {
+  margin: 0; /* Reset margin for alignment */
+}
+
 .editor {
   width: 100%;
   height: 300px;
@@ -60,8 +71,6 @@ h2 {
   box-sizing: border-box;
   transition: border-color 0.2s;
 }
-
-
 
 .diff-viewer {
   width: 100%;
@@ -83,6 +92,26 @@ button {
 button:hover {
   background: #1965b3; /* Slightly darker blue on hover */
 }
+
+.open-file-btn {
+  background: none;
+  border: 1px solid var(--primary-blue);
+  color: var(--primary-blue);
+  padding: 4px 12px;
+  margin-top: 0;
+  font-size: 0.9em;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.open-file-btn:hover {
+  background: rgba(46, 134, 222, 0.1);
+  color: #1965b3;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
 
 .diff-output {
   border: 1px solid #ccc;

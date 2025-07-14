@@ -36,3 +36,43 @@ export function setupFileComparison() {
     document.getElementById('fileDiffResult').innerHTML = html;
   });
 }
+
+/**
+ * Sets up the file open buttons for the Monaco editors.
+ */
+export function setupEditorFileOpeners() {
+  /**
+   * Helper to connect a button, a hidden file input, and an editor instance.
+   * @param {string} buttonId - The ID of the button that triggers the file dialog.
+   * @param {string} inputId - The ID of the hidden file input element.
+   * @param {monaco.editor.IStandaloneCodeEditor} editor - The Monaco editor instance.
+   */
+  const connectComponents = (buttonId, inputId, editor) => {
+    const openFileBtn = document.getElementById(buttonId);
+    const fileInput = document.getElementById(inputId);
+
+    // When the "Open File" button is clicked, programmatically click the hidden file input.
+    openFileBtn.addEventListener('click', () => fileInput.click());
+
+    // When a file is selected in the file dialog...
+    fileInput.addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      if (!file) {
+        return; // No file selected
+      }
+      try {
+        const text = await readFileAsText(file);
+        editor.setValue(text); // Load the file content into the editor.
+      } catch (err) {
+        console.error("Error reading file:", err);
+        alert("Failed to read the selected file.");
+      }
+      // Reset the input value to allow opening the same file again
+      event.target.value = '';
+    });
+  };
+
+  // Connect the components for both editors
+  connectComponents('openFile1', 'fileInput1', window.editor1);
+  connectComponents('openFile2', 'fileInput2', window.editor2);
+}

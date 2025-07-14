@@ -1,3 +1,5 @@
+import { setupTextComparison, setupEditorFileOpeners } from './domHandlers.js';
+
 require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs' } });
 
 require(['vs/editor/editor.main'], function () {
@@ -19,11 +21,13 @@ require(['vs/editor/editor.main'], function () {
     minimap: { enabled: false }
   });
 
-  // Initialize the DiffEditor empty — we’ll set the model later
   window.diffEditor = monaco.editor.createDiffEditor(document.getElementById('diffContainer'), {
     theme: 'vs',
     readOnly: true,
     automaticLayout: true,
     minimap: { enabled: false }
   });
+
+  setupTextComparison();
+  setupEditorFileOpeners();
 });
