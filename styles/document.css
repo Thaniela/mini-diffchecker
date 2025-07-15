@@ -20,6 +20,7 @@
 /* This rule styles the drop zone containers */
 .drop-zone {
   flex: 1;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +33,6 @@
   text-align: center;
   position: relative;
   min-height: 250px;
-  max-width: 500px;
   transition: border-color 0.2s, background-color 0.2s;
   cursor: pointer;
 }
@@ -99,4 +99,75 @@
 .compare-files-wrapper {
   text-align: center;
   margin-top: 20px;
+}
+
+
+#result-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 320px; /* Three columns */
+  gap: 15px;
+  width: 100%;
+  height: calc(100vh - 150px); /* Fill the vertical space */
+}
+
+.document-viewer, .changes-sidebar {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.document-viewer h3, .changes-sidebar h3 {
+  padding: 10px 15px;
+  margin: 0;
+  font-size: 1em;
+  font-weight: 500;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 8px 8px 0 0;
+}
+
+.document-viewer iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+#changes-log {
+  padding: 10px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.change-item {
+  margin-bottom: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.change-header {
+  padding: 5px 8px;
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.change-content {
+  padding: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #fafafa;
+}
+
+/* Colors for Added/Removed */
+.change-item.added .change-header {
+  background-color: #e8f5e9; /* Light Green */
+  color: #2e7d32;
+}
+.change-item.removed .change-header {
+  background-color: #ffebee; /* Light Red */
+  color: #c62828;
 }
