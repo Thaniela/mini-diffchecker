@@ -28,7 +28,10 @@ require(['vs/editor/editor.main'], function () {
     readOnly: true,
     automaticLayout: true,
     minimap: { enabled: false },
-    wordWrap: 'on' 
+    wordWrap: 'on',
+    renderSideBySide: true, // This is the key change
+    diffAlgorithm: 'advanced'  // Optional: For better diff results
+ 
   });
 
   window.diffEditor.getOriginalEditor().updateOptions({ wordWrap: 'on' });
@@ -50,7 +53,7 @@ require(['vs/editor/editor.main'], function () {
   });
 
   window.diffEditor.layout();
-  
+
   setupTextComparison();
   setupEditorFileOpeners();
 });

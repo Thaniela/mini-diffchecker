@@ -36,6 +36,8 @@ function runDocumentComparer() {
     automaticLayout: true,
     wordWrap: 'on',
     minimap: { enabled: false },
+    renderSideBySide: true, // This is the key change to make it single-column
+    diffAlgorithm: 'advanced' // Optional: Use advanced diff algorithm for better results
   });
 
   // --- 5. HELPER FUNCTIONS ---
