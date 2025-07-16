@@ -9,12 +9,13 @@
 <body>
   <header class="main-header">
     <div class="header-content">
-      <a href="index.html" class="logo-container">
-        <div class="logo-placeholder">D</div>
+      <a href="home.html" class="logo-container">
+        <img src="./assets/logo.png" alt="TD Logo" class="logo-placeholder">
         <span class="system-name">Mini DiffChecker</span>
       </a>
       <nav class="main-nav">
         <ul>
+          <li><a href="home.html">Home</a></li>
           <li><a href="index.html">Text</a></li>
           <li><a href="document.html" class="active-nav">Document</a></li>
         </ul>
@@ -31,7 +32,7 @@
             <div class="file-comparison-container">
                 <!-- Drop Zone 1 -->
                 <div class="drop-zone" id="drop-zone-1">
-                    <input type="file" id="file1" class="hidden-file-input" accept=".docx,.pdf" />
+                    <input type="file" id="file1" class="hidden-file-input" accept=".docx,.pdf,.txt" />
                     <div class="drop-zone__content">
                         <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
                         <p><strong>Drop original document here</strong></p>
@@ -41,7 +42,7 @@
                 </div>
                 <!-- Drop Zone 2 -->
                 <div class="drop-zone" id="drop-zone-2">
-                    <input type="file" id="file2" class="hidden-file-input" accept=".docx,.pdf" />
+                    <input type="file" id="file2" class="hidden-file-input" accept=".docx,.pdf,.txt" />
                     <div class="drop-zone__content">
                         <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
                         <p><strong>Drop changed document here</strong></p>
@@ -50,24 +51,26 @@
                     <div class="drop-zone__file-display hidden"></div>
                 </div>
             </div>
-            <div class="compare-files-wrapper">
+            <div class="action-buttons">
                 <button id="compareFilesBtn" disabled>Find Difference</button>
             </div>
         </div>
 
         <div id="diffResultWrapper" class="hidden">
-            <!-- The summary header should be the first and only thing before the editor -->
-            <div class="diff-summary-header">
+            <div class="action-buttons align-right">
+                <button id="clearDocBtn" class="secondary-btn">Start New Comparison</button>
+            </div>
+            <!-- ▼▼▼ Replaced summary header with stats container ▼▼▼ -->
+            <div class="diff-stats-container">
                 <div class="diff-stat removals">
-                    <svg ...></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     <span id="removals-count">0 removals</span>
                 </div>
                 <div class="diff-stat additions">
-                    <svg ...></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     <span id="additions-count">0 additions</span>
                 </div>
             </div>
-            <h2>Difference Result</h2>
             <div id="documentDiffEditor" class="diff-viewer"></div>
         </div>
     </section>
@@ -77,7 +80,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-  
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
 
   <!-- Your Application Logic -->

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Mini DiffChecker</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <style>
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #f0f6ff;
+            border-bottom: 1px solid #d0d7de;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #444;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .feature-card {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px broadcasters(0,0,0,0.1);
+        }
+        .feature-card h2 {
+            color: var(--primary-blue);
+            margin-top: 0;
+        }
+        .feature-card p {
+            color: #616161;
+            line-height: 1.6;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+        .cta-button:hover {
+            background: #1965b3;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <a href="home.html" class="logo-container">
+                <img src="./assets/logo.png" alt="TD Logo" class="logo-placeholder">
+                <span class="system-name">Mini DiffChecker</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html" class="active-nav">Home</a></li>
+                    <li><a href="index.html">Text</a></li>
+                    <li><a href="document.html">Document</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="diff-container">
+        <section class="hero">
+            <h1>Welcome to Mini DiffChecker</h1>
+            <p>Your simple and powerful tool for comparing text and documents to instantly find the differences.</p>
+        </section>
+
+        <div class="features">
+            <div class="feature-card">
+                <h2>Compare Text</h2>
+                <p>Directly paste your original and modified text into our side-by-side editors. Click compare to see a detailed, line-by-line highlight of all changes.</p>
+                <a href="index.html" class="cta-button">Go to Text Diff</a>
+            </div>
+            <div class="feature-card">
+                <h2>Compare Documents</h2>
+                <p>Upload two versions of a DOCX or PDF file. Our tool will extract the text and show you exactly what's been added, removed, or changed.</p>
+                <a href="document.html" class="cta-button">Go to Document Diff</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

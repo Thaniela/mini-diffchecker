@@ -1,7 +1,13 @@
 :root {
   --primary-blue: #2E86DE;
+  --light-blue-bg: #f0f6ff;
   --background-light: #ffffff;
   --text-dark: #222;
+  --border-color: #d0d7de;
+  --addition-bg-light: rgba(22, 163, 74, 0.1); /* Lighter green for whole line */
+  --addition-bg-strong: rgba(22, 163, 74, 0.25); /* Stronger green for word */
+  --removal-bg-light: rgba(220, 53, 69, 0.1); /* Lighter red for whole line */
+  --removal-bg-strong: rgba(220, 53, 69, 0.25); /* Stronger red for word */
 }
 
 .hidden {
@@ -9,8 +15,8 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f9f9f9; /* I used the more specific body rule you had below */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #fdfdfd;/* I used the more specific body rule you had below */
   margin: 0; /* Changed from 40px to 0 to allow the header to be full-width */
   padding: 0;
   overflow-x: hidden;
@@ -165,20 +171,24 @@ button:hover {
 
 .action-buttons {
   display: flex;
-  gap: 10px; /* Adds space between the buttons */
-  margin-top: 10px;
+  justify-content: center; /* Center buttons by default */
+  gap: 10px;
+  margin-top: 20px; /* Increased top margin */
+  margin-bottom: 20px; /* Added consistent bottom margin */
 }
 
-/* Style for the new "Clear" button */
+.action-buttons.align-right {
+    justify-content: flex-end; /* Aligns the button to the right */
+}
+
 .secondary-btn {
-  background-color: #6c757d; /* A neutral gray color */
+  background-color: #6c757d;
   border: 1px solid #6c757d;
 }
 
 .secondary-btn:hover {
-  background-color: #5a6268; /* A slightly darker gray on hover */
+  background-color: #5a6268;
 }
-
 
 .open-file-btn {
   background: none;
@@ -199,40 +209,6 @@ button:hover {
   display: none;
 }
 
-
-.diff-output {
-  border: 1px solid #ccc;
-  background: #fefefe;
-  padding: 15px;
-  margin-top: 15px;
-  white-space: pre-wrap;
-  font-family: monospace;
-}
-
-.diff-output ins {
-  background: #d4fcbc;
-  text-decoration: none;
-}
-
-.diff-output del {
-  background: #fbb6c2;
-  text-decoration: none;
-}
-
-.file-upload {
-  display: inline-block;
-  cursor: pointer;
-  color: var(--primary-blue); /* or your TD blue */
-  font-weight: 500;
-  margin-bottom: 5px;
-}
-
-.file-upload:hover {
-  text-decoration: underline;
-}
-
-/* Filename: styles/document-compare.css */
-
 .section-subtitle {
   text-align: center;
   color: #616161;
@@ -240,7 +216,6 @@ button:hover {
   margin-bottom: 20px;
 }
 
-/* This rule forces the two-column layout */
 .file-comparison-container {
   display: flex;
   flex-direction: row;
@@ -250,7 +225,6 @@ button:hover {
   margin-top: 20px;
 }
 
-/* This rule styles the drop zone containers */
 .drop-zone {
   flex: 1;
   max-width: 500px;
@@ -270,13 +244,11 @@ button:hover {
   cursor: pointer;
 }
 
-/* Adds a highlight effect on hover or drag-over */
 .drop-zone:hover, .drop-zone.dragover {
   border-color: #2E86DE;
   background-color: #f0f6ff;
 }
 
-/* Styles the content inside the drop zone */
 .drop-zone__content {
   display: flex;
   flex-direction: column;
@@ -293,13 +265,6 @@ button:hover {
   margin: 4px 0;
 }
 
-.file-types {
-  font-size: 0.9em;
-  color: #9e9e9e;
-  margin-bottom: 20px;
-}
-
-/* This is the correct style for the "Upload File" button */
 .upload-button {
   background: #2E86DE;
   border: none;
@@ -316,16 +281,10 @@ button:hover {
   background: #1965b3;
 }
 
-/* Styles for the filename after a file is chosen */
 .drop-zone__file-display {
   font-weight: bold;
   font-size: 1.1em;
   color: #2E86DE;
-}
-
-.drop-zone__file-display.processing {
-  color: #616161;
-  font-style: italic;
 }
 
 /* Styles for the main "Find Difference" button area */
@@ -425,47 +384,37 @@ button:hover {
     text-decoration: none;
 }
 
-/* Find the existing .diff-summary-header rule and replace it with this */
-.diff-summary-header {
-  display: flex;
-  justify-content: flex-start; /* This groups the items to the left */
-  gap: 25px; /* Adds space between the "removals" and "additions" stats */
-  padding: 12px 16px;
-  background-color: #f6f8fa;
-  border: 1px solid #d0d7de;
-  border-bottom: 1px solid #d0d7de; /* Ensure a consistent border */
-  border-radius: 6px 6px 0 0; /* Rounds the top corners */
+.diff-stats-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px; /* Horizontal padding */
+    margin-bottom: 10px; /* Space between stats and the diff viewer */
 }
 
-/* Find the existing .diff-stat rule and ensure it's vertically aligned */
 .diff-stat {
   display: flex;
-  align-items: center; /* This is key for vertical alignment */
+  align-items: center;
   gap: 8px;
   font-size: 0.9em;
   font-weight: 500;
 }
 
-/* Find the existing .diff-viewer rule and update it to connect with the header */
+/* UPDATED: Diff viewer with a full border */
 .diff-viewer {
   width: 100%;
   height: auto;
   min-height: 150px;
-  /* ▼▼▼ START OF CHANGES ▼▼▼ */
-  margin-top: 0; /* Removes the space between the header and the editor */
+  margin-top: 10px; /* Space from the stats above */
   margin-bottom: 30px;
-  border: 1px solid #d0d7de;
-  border-top: none; /* The header above now provides the top border */
-  border-radius: 0 0 6px 6px; /* Rounds the bottom corners to complete the "card" look */
-  /* ▲▲▲ END OF CHANGES ▲▲▲ */
+  border: 1px solid #ccc;
+  border-radius: 6px; /* Round all corners */
   overflow: hidden;
 }
 
-/* Optional: Slightly soften the icon colors for a more modern feel */
 .diff-stat.removals {
-  color: #cf222e; /* A slightly softer red */
+  color: #cf222e;
 }
 
 .diff-stat.additions {
-  color: #1a7f37; /* A slightly softer green */
+  color: #1a7f37;
 }
