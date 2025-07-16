@@ -8,13 +8,11 @@
 function runDocumentComparer() {
 
   // --- 1. VERIFY LIBRARIES & CONFIGURE ---
-  // A quick check to make sure external scripts loaded correctly.
   if (typeof window.pdfjsLib === 'undefined' || typeof window.mammoth === 'undefined') {
     alert("A required library (pdf.js or mammoth.js) failed to load. Please check your internet connection and refresh.");
     return;
   }
   
-  // Configure the PDF.js library. This must be done before it's used.
   window.pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js`;
 
   // --- 2. GET DOM ELEMENTS ---
@@ -29,18 +27,86 @@ function runDocumentComparer() {
   let file2 = null;
 
   // --- 4. CREATE THE MONACO DIFF EDITOR ---
-  // This is safe to do now because this whole function runs after Monaco is ready.
-  const diffEditor = monaco.editor.createDiffEditor(document.getElementById('documentDiffEditor'), {
-    theme: 'vs', // Use the light theme to match the screenshot
-    readOnly: true,
-    automaticLayout: true,
-    wordWrap: 'on',
-    minimap: { enabled: false },
-    renderSideBySide: true, // This is the key change to make it single-column
-    diffAlgorithm: 'advanced' // Optional: Use advanced diff algorithm for better results
+  // Update the Monaco Editor configuration in the runDocumentComparer function
+
+const diffEditor = monaco.editor.createDiffEditor(document.getElementById('documentDiffEditor'), {
+  theme: 'vs',
+  readOnly: true,
+  automaticLayout: true,
+  wordWrap: 'on',
+  minimap: { enabled: false },
+  renderSideBySide: true,
+  diffAlgorithm: 'advanced',
+  scrollBeyondLastLine: false,
+  wrappingIndent: 'same',
+  overviewRulerLanes: 0,
+  scrollbar: {
+    vertical: 'auto',
+    horizontal: 'hidden',
+    alwaysConsumeMouseWheel: false
+  },
+  diffWordWrap: 'on',
+  // These are the key changes to ignore whitespace
+  ignoreTrimWhitespace: true,
+  renderWhitespace: 'none',
+  renderIndentGuides: false,
+  // Customize the diff colors to not highlight whitespace
+  diffDecorations: {
+    addedLineDecoration: {
+      backgroundColor: 'rgba(155, 185, 85, 0.2)',
+      isWholeLine: false // Only highlight the changed text, not whole line
+    },
+    removedLineDecoration: {
+      backgroundColor: 'rgba(255, 0, 0, 0.2)',
+      isWholeLine: false // Only highlight the changed text, not whole line
+    },
+    modifiedLineDecoration: {
+      backgroundColor: 'rgba(255, 255, 0, 0.2)',
+      isWholeLine: false // Only highlight the changed text, not whole line
+    }
+  }
+});
+
+// Update the normalizeText function to better handle line breaks
+function normalizeText(text) {
+  // Standardize line endings and collapse multiple spaces/newlines
+  let standardized = text.replace(/\r\n|\r/g, '\n')
+                        .replace(/\n{3,}/g, '\n\n') // Max 2 newlines
+                        .replace(/[ \t]+/g, ' ')
+                        .trim();
+
+  // Split into paragraphs (separated by two newlines)
+  const paragraphs = standardized.split(/\n{2,}/);
+
+  // Process each paragraph
+  const processedParagraphs = paragraphs.map(paragraph => {
+    // Clean up the paragraph
+    let cleanParagraph = paragraph.replace(/\n/g, ' ')
+                                 .replace(/[ ]+/g, ' ')
+                                 .trim();
+
+    // Word wrap to ~80 characters while preserving words
+    const words = cleanParagraph.split(' ');
+    let currentLine = '';
+    const lines = [];
+    
+    for (const word of words) {
+      if (currentLine.length + word.length + 1 > 80) {
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        currentLine += (currentLine.length ? ' ' : '') + word;
+      }
+    }
+    if (currentLine) lines.push(currentLine);
+    
+    return lines.join('\n');
   });
 
-  // --- 5. HELPER FUNCTIONS ---
+  // Join paragraphs with double newlines
+  return processedParagraphs.join('\n\n');
+}
+    
   async function extractTextFromFile(file) {
     const extension = file.name.split('.').pop().toLowerCase();
     if (extension === 'pdf') {
@@ -114,10 +180,19 @@ function runDocumentComparer() {
     compareBtn.textContent = 'Processing...';
     try {
       const [text1, text2] = await Promise.all([extractTextFromFile(file1), extractTextFromFile(file2)]);
+
+      const normalizedText1 = normalizeText(text1);
+      const normalizedText2 = normalizeText(text2);
+
+      // Create models with the same URI scheme to ensure proper diffing
+      const originalModel = monaco.editor.createModel(normalizedText1, 'text/plain');
+      const modifiedModel = monaco.editor.createModel(normalizedText2, 'text/plain');
+      
       diffEditor.setModel({
-        original: monaco.editor.createModel(text1, 'text/plain'),
-        modified: monaco.editor.createModel(text2, 'text/plain')
+        original: originalModel,
+        modified: modifiedModel
       });
+
       uploadContainer.classList.add('hidden');
       resultWrapper.classList.remove('hidden');
     } catch (err) {
@@ -145,11 +220,21 @@ function runDocumentComparer() {
     });
     removalsCountEl.textContent = `${removals} removal${removals !== 1 ? 's' : ''}`;
     additionsCountEl.textContent = `${additions} addition${additions !== 1 ? 's' : ''}`;
+
+    const diffContainerEl = document.getElementById('documentDiffEditor');
+    const originalEditor = diffEditor.getOriginalEditor();
+    const modifiedEditor = diffEditor.getModifiedEditor();
+
+    const newHeight = Math.max(
+      originalEditor.getContentHeight(),
+      modifiedEditor.getContentHeight()
+    );
+
+    diffContainerEl.style.height = `${newHeight + 20}px`;
+    diffEditor.layout();
   });
 }
 
 // --- GLOBAL ENTRY POINT ---
-// This is the most reliable way to start our app. It tells the Monaco loader
-// to fetch its files, and ONLY when it's done, it will run our main function.
 require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs' } });
 require(['vs/editor/editor.main'], runDocumentComparer);

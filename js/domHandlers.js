@@ -41,6 +41,27 @@ export function setupFileComparison() {
   });
 }
 
+
+export function setupClearButton() {
+  const clearBtn = document.getElementById('clearBtn');
+  if (!clearBtn) return; // Guard clause in case the button isn't on the page
+
+  clearBtn.addEventListener('click', () => {
+    // Clear the two input editors
+    window.editor1.setValue('');
+    window.editor2.setValue('');
+
+    // Clear the diff editor by setting an empty model
+    window.diffEditor.setModel({
+      original: monaco.editor.createModel(''),
+      modified: monaco.editor.createModel('')
+    });
+
+    // Hide the entire result wrapper
+    document.getElementById('diffResultWrapper').classList.add('hidden');
+  });
+}
+
 /**
  * Sets up the file open buttons for the Monaco editors.
  */

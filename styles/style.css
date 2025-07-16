@@ -163,6 +163,23 @@ button:hover {
   background: #1965b3; /* Slightly darker blue on hover */
 }
 
+.action-buttons {
+  display: flex;
+  gap: 10px; /* Adds space between the buttons */
+  margin-top: 10px;
+}
+
+/* Style for the new "Clear" button */
+.secondary-btn {
+  background-color: #6c757d; /* A neutral gray color */
+  border: 1px solid #6c757d;
+}
+
+.secondary-btn:hover {
+  background-color: #5a6268; /* A slightly darker gray on hover */
+}
+
+
 .open-file-btn {
   background: none;
   border: 1px solid var(--primary-blue);
@@ -408,28 +425,47 @@ button:hover {
     text-decoration: none;
 }
 
+/* Find the existing .diff-summary-header rule and replace it with this */
 .diff-summary-header {
   display: flex;
-  justify-content: space-between;
-  padding: 10px 15px;
+  justify-content: flex-start; /* This groups the items to the left */
+  gap: 25px; /* Adds space between the "removals" and "additions" stats */
+  padding: 12px 16px;
   background-color: #f6f8fa;
-  border: 1px solid #ccc;
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
+  border: 1px solid #d0d7de;
+  border-bottom: 1px solid #d0d7de; /* Ensure a consistent border */
+  border-radius: 6px 6px 0 0; /* Rounds the top corners */
 }
 
+/* Find the existing .diff-stat rule and ensure it's vertically aligned */
 .diff-stat {
   display: flex;
-  align-items: center;
+  align-items: center; /* This is key for vertical alignment */
   gap: 8px;
   font-size: 0.9em;
   font-weight: 500;
 }
 
+/* Find the existing .diff-viewer rule and update it to connect with the header */
+.diff-viewer {
+  width: 100%;
+  height: auto;
+  min-height: 150px;
+  /* ▼▼▼ START OF CHANGES ▼▼▼ */
+  margin-top: 0; /* Removes the space between the header and the editor */
+  margin-bottom: 30px;
+  border: 1px solid #d0d7de;
+  border-top: none; /* The header above now provides the top border */
+  border-radius: 0 0 6px 6px; /* Rounds the bottom corners to complete the "card" look */
+  /* ▲▲▲ END OF CHANGES ▲▲▲ */
+  overflow: hidden;
+}
+
+/* Optional: Slightly soften the icon colors for a more modern feel */
 .diff-stat.removals {
-  color: #c62828; /* Red for removals */
+  color: #cf222e; /* A slightly softer red */
 }
 
 .diff-stat.additions {
-  color: #2e7d32; /* Green for additions */
+  color: #1a7f37; /* A slightly softer green */
 }

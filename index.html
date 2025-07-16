@@ -44,10 +44,28 @@
       </div>
     </div>
 
-    <button id="compareBtn">Compare Text</button>
+    <div class="action-buttons">
+      <button id="compareBtn">Compare Text</button>
+      <button id="clearBtn" class="secondary-btn">Clear</button>
+    </div>
 
     <div id="diffResultWrapper" class="hidden">
-      <h2>Diff Result</h2>
+      <!-- The summary header -->
+      <div class="diff-summary-header">
+        <div class="diff-stat removals">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span id="text-removals-count">0 removals</span>
+        </div>
+        <div class="diff-stat additions">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span id="text-additions-count">0 additions</span>
+        </div>
+      </div>
+      
+      <!-- ▼▼▼ DELETE THIS LINE ▼▼▼ -->
+      <h2>Difference Result</h2>
+      <!-- ▲▲▲ DELETE THIS LINE ▲▲▲ -->
+      
       <div id="diffContainer" class="diff-viewer"></div>
     </div>
 
