@@ -145,16 +145,6 @@ h2 {
   overflow: hidden; 
 }
 
-.diff-viewer {
-  width: 100%;
-  height: auto;
-  min-height: 150px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  border: 1px solid #ccc;
-  overflow: hidden; 
-}
-
 button {
   background: var(--primary-blue);
   border: none;
@@ -404,11 +394,11 @@ button:hover {
   width: 100%;
   height: auto;
   min-height: 150px;
-  margin-top: 10px; 
+  max-height: 75vh;
+  margin-top: 10px;
   margin-bottom: 30px;
   border: 1px solid #ccc;
-  border-radius: 6px; 
-  overflow: hidden;
+  border-radius: 6px;
 }
 
 .diff-stat.removals {
