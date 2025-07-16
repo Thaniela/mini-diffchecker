@@ -113,8 +113,15 @@ h2 {
 
 .editor-wrapper {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 1rem; /* Creates space between the two editors */
+  height: 400px; /* Give the wrapper a specific height */
+}
+
+/* Apply this to the containers of ALL your Monaco editors */
+  #editor1, #editor2, #diffContainer {
+  flex: 1; /* Allows editors to grow and fill available space */
+  position: relative; /* Crucial for editor's internal positioning */
+  border: 1px solid #ddd; /* Visual boundary */
 }
 
 .editor-column {

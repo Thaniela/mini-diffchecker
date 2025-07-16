@@ -10,7 +10,8 @@ require(['vs/editor/editor.main'], function () {
     theme: 'vs',
     automaticLayout: true,
     minimap: { enabled: false },
-    wordWrap: 'on' 
+    wordWrap: 'on',
+    renderIndicators: false 
   });
 
   window.editor2 = monaco.editor.create(document.getElementById('editor2'), {
@@ -20,7 +21,8 @@ require(['vs/editor/editor.main'], function () {
     theme: 'vs',
     automaticLayout: true,
     minimap: { enabled: false },
-    wordWrap: 'on' 
+    wordWrap: 'on',
+    renderIndicators: false
   });
 
   window.diffEditor = monaco.editor.createDiffEditor(document.getElementById('diffContainer'), {
@@ -30,8 +32,17 @@ require(['vs/editor/editor.main'], function () {
     minimap: { enabled: false },
     wordWrap: 'on',
     renderSideBySide: true, 
-    diffAlgorithm: 'advanced'  
- 
+    diffAlgorithm: 'advanced',
+    renderIndicators: false,
+    scrollBeyondLastLine: false,
+    wrappingIndent: 'same',
+    overviewRulerLanes: 0,
+    scrollbar: {
+      vertical: 'auto',
+      horizontal: 'hidden',
+      alwaysConsumeMouseWheel: false
+    },
+    diffWordWrap: 'on',
   });
 
   window.diffEditor.getOriginalEditor().updateOptions({ wordWrap: 'on' });
@@ -83,5 +94,12 @@ require(['vs/editor/editor.main'], function () {
   setupTextComparison();
   setupEditorFileOpeners();
   setupClearButton(); 
+
+  window.addEventListener('resize', () => {
+    window.editor1.layout();
+    window.editor2.layout();
+    window.diffEditor.layout();
+  });
+
 
 });
