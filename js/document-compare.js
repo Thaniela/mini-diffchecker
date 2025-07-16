@@ -21,6 +21,8 @@ function runDocumentComparer() {
   const compareBtn = document.getElementById('compareFilesBtn');
   const removalsCountEl = document.getElementById('removals-count');
   const additionsCountEl = document.getElementById('additions-count');
+  const clearDocBtn = document.getElementById('clearDocBtn');
+
 
   // --- 3. STATE VARIABLES ---
   let file1 = null;
@@ -174,35 +176,82 @@ function normalizeText(text) {
   setupDropZone('drop-zone-1');
   setupDropZone('drop-zone-2');
 
-  compareBtn.addEventListener('click', async () => {
-    if (!file1 || !file2) return;
-    compareBtn.disabled = true;
-    compareBtn.textContent = 'Processing...';
-    try {
-      const [text1, text2] = await Promise.all([extractTextFromFile(file1), extractTextFromFile(file2)]);
-
-      const normalizedText1 = normalizeText(text1);
-      const normalizedText2 = normalizeText(text2);
-
-      // Create models with the same URI scheme to ensure proper diffing
-      const originalModel = monaco.editor.createModel(normalizedText1, 'text/plain');
-      const modifiedModel = monaco.editor.createModel(normalizedText2, 'text/plain');
-      
-      diffEditor.setModel({
-        original: originalModel,
-        modified: modifiedModel
-      });
-
-      uploadContainer.classList.add('hidden');
-      resultWrapper.classList.remove('hidden');
-    } catch (err) {
-      console.error("Comparison failed:", err);
-      alert("An error occurred during comparison: " + err.message);
-    } finally {
-      compareBtn.disabled = false;
-      compareBtn.textContent = 'Find Difference';
-    }
+  clearDocBtn.addEventListener('click', () => {
+  // Reset file state
+  file1 = null;
+  file2 = null;
+  
+  // Clear file displays
+  document.querySelectorAll('.drop-zone__file-display').forEach(el => {
+    el.textContent = '';
+    el.classList.add('hidden');
   });
+  
+  // Show file input content again
+  document.querySelectorAll('.drop-zone__content').forEach(el => {
+    el.classList.remove('hidden');
+  });
+  
+  // Clear file inputs
+  document.querySelectorAll('.drop-zone input[type="file"]').forEach(el => {
+    el.value = '';
+  });
+  
+  // Reset UI state
+  uploadContainer.classList.remove('hidden');
+  resultWrapper.classList.add('hidden');
+  clearDocBtn.classList.add('hidden');
+  
+  // Clear diff editor
+  const originalModel = diffEditor.getOriginalEditor().getModel();
+  const modifiedModel = diffEditor.getModifiedEditor().getModel();
+  diffEditor.setModel({
+    original: monaco.editor.createModel('', 'text/plain'),
+    modified: monaco.editor.createModel('', 'text/plain')
+  });
+  
+  // Dispose of old models to prevent memory leaks
+  if (originalModel) originalModel.dispose();
+  if (modifiedModel) modifiedModel.dispose();
+  
+  // Reset counters
+  removalsCountEl.textContent = '0 removals';
+  additionsCountEl.textContent = '0 additions';
+  
+  // Reset compare button
+  compareBtn.disabled = true;
+});
+
+// Update the compareBtn click handler to show the clear button when done
+compareBtn.addEventListener('click', async () => {
+  if (!file1 || !file2) return;
+  compareBtn.disabled = true;
+  compareBtn.textContent = 'Processing...';
+  try {
+    const [text1, text2] = await Promise.all([extractTextFromFile(file1), extractTextFromFile(file2)]);
+
+    const normalizedText1 = normalizeText(text1);
+    const normalizedText2 = normalizeText(text2);
+
+    const originalModel = monaco.editor.createModel(normalizedText1, 'text/plain');
+    const modifiedModel = monaco.editor.createModel(normalizedText2, 'text/plain');
+    
+    diffEditor.setModel({
+      original: originalModel,
+      modified: modifiedModel
+    });
+
+    uploadContainer.classList.add('hidden');
+    resultWrapper.classList.remove('hidden');
+    clearDocBtn.classList.remove('hidden'); // Show the clear button
+  } catch (err) {
+    console.error("Comparison failed:", err);
+    alert("An error occurred during comparison: " + err.message);
+  } finally {
+    compareBtn.disabled = false;
+    compareBtn.textContent = 'Find Difference';
+  }
+});
 
   diffEditor.onDidUpdateDiff(() => {
     const changes = diffEditor.getLineChanges() || [];
