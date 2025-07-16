@@ -11,7 +11,10 @@ require(['vs/editor/editor.main'], function () {
     automaticLayout: true,
     minimap: { enabled: false },
     wordWrap: 'on',
-    renderIndicators: false 
+    renderIndicators: false,
+    scrollBeyondLastLine: true,
+    largeFileOptimizations: true,
+    maxTokenizationLineLength: 20000,
   });
 
   window.editor2 = monaco.editor.create(document.getElementById('editor2'), {
@@ -22,7 +25,10 @@ require(['vs/editor/editor.main'], function () {
     automaticLayout: true,
     minimap: { enabled: false },
     wordWrap: 'on',
-    renderIndicators: false
+    renderIndicators: false,
+    scrollBeyondLastLine: true,
+    largeFileOptimizations: true,
+  maxTokenizationLineLength: 20000,
   });
 
   window.diffEditor = monaco.editor.createDiffEditor(document.getElementById('diffContainer'), {
@@ -34,9 +40,13 @@ require(['vs/editor/editor.main'], function () {
     renderSideBySide: true, 
     diffAlgorithm: 'advanced',
     renderIndicators: false,
-    scrollBeyondLastLine: false,
+    scrollBeyondLastLine: true,
     wrappingIndent: 'same',
     overviewRulerLanes: 0,
+    folding: false,
+    glyphMargin: false,
+    fixedOverflowWidgets: true,
+    smoothScrolling: true,
     scrollbar: {
       vertical: 'auto',
       horizontal: 'hidden',
@@ -45,8 +55,16 @@ require(['vs/editor/editor.main'], function () {
     diffWordWrap: 'on',
   });
 
-  window.diffEditor.getOriginalEditor().updateOptions({ wordWrap: 'on' });
-  window.diffEditor.getModifiedEditor().updateOptions({ wordWrap: 'on' });
+  window.diffEditor.getOriginalEditor().updateOptions({ wordWrap: 'on', scrollBeyondLastLine: true });
+  window.diffEditor.getModifiedEditor().updateOptions({ wordWrap: 'on', scrollBeyondLastLine: true });
+
+  window.diffEditor.getModifiedEditor().onDidScrollChange((e) => {
+  window.diffEditor.getOriginalEditor().setScrollTop(e.scrollTop);
+});
+
+window.diffEditor.getOriginalEditor().onDidScrollChange((e) => {
+  window.diffEditor.getModifiedEditor().setScrollTop(e.scrollTop);
+});
 
   window.diffEditor.onDidUpdateDiff(() => {
     const diffContainer = document.getElementById('diffContainer');
@@ -61,6 +79,8 @@ require(['vs/editor/editor.main'], function () {
 
     
     diffContainer.style.height = `${newHeight + 20}px`;
+
+    window.diffEditor.layout();
 
     const removalsEl = document.getElementById('text-removals-count');
     const additionsEl = document.getElementById('text-additions-count');
@@ -95,10 +115,14 @@ require(['vs/editor/editor.main'], function () {
   setupEditorFileOpeners();
   setupClearButton(); 
 
+  let resizeTimeout;
   window.addEventListener('resize', () => {
-    window.editor1.layout();
-    window.editor2.layout();
-    window.diffEditor.layout();
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      window.editor1.layout();
+      window.editor2.layout();
+      window.diffEditor.layout();
+    }, 100);
   });
 
 
