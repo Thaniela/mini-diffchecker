@@ -66,9 +66,9 @@ export function setupClearButton() {
 export function setupEditorFileOpeners() {
   /**
    * Helper to connect a button, a hidden file input, and an editor instance.
-   * @param {string} buttonId - The ID of the button that triggers the file dialog.
-   * @param {string} inputId - The ID of the hidden file input element.
-   * @param {monaco.editor.IStandaloneCodeEditor} editor - The Monaco editor instance.
+   * @param {string} buttonId 
+   * @param {string} inputId 
+   * @param {monaco.editor.IStandaloneCodeEditor} editor
    */
   const connectComponents = (buttonId, inputId, editor) => {
     const openFileBtn = document.getElementById(buttonId);
