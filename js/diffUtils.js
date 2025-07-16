@@ -1,4 +1,4 @@
-export const dmp = new window.diff_match_patch(); // <-- Add "window."
+export const dmp = new window.diff_match_patch(); 
 
 export function getDiffHtml(text1, text2) {
   const diff = dmp.diff_main(text1, text2);

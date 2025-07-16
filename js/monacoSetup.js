@@ -29,8 +29,8 @@ require(['vs/editor/editor.main'], function () {
     automaticLayout: true,
     minimap: { enabled: false },
     wordWrap: 'on',
-    renderSideBySide: true, // This is the key change
-    diffAlgorithm: 'advanced'  // Optional: For better diff results
+    renderSideBySide: true, 
+    diffAlgorithm: 'advanced'  
  
   });
 
@@ -42,13 +42,13 @@ require(['vs/editor/editor.main'], function () {
     const originalEditor = window.diffEditor.getOriginalEditor();
     const modifiedEditor = window.diffEditor.getModifiedEditor();
 
-    // Calculate the height needed by the taller of the two editors.
+    
     const newHeight = Math.max(
       originalEditor.getContentHeight(),
       modifiedEditor.getContentHeight()
     );
 
-    // Apply the new height to the container element.
+    
     diffContainer.style.height = `${newHeight + 20}px`;
 
     const removalsEl = document.getElementById('text-removals-count');
@@ -59,15 +59,15 @@ require(['vs/editor/editor.main'], function () {
     let removals = 0;
 
     changes.forEach(change => {
-      // It's a pure addition
+      
       if (change.originalEndLineNumber === 0) {
         additions += (change.modifiedEndLineNumber - change.modifiedStartLineNumber + 1);
       } 
-      // It's a pure removal
+      
       else if (change.modifiedEndLineNumber === 0) {
         removals += (change.originalEndLineNumber - change.originalStartLineNumber + 1);
       } 
-      // It's a modification, count as one of each
+      
       else {
         additions++;
         removals++;
@@ -82,6 +82,6 @@ require(['vs/editor/editor.main'], function () {
 
   setupTextComparison();
   setupEditorFileOpeners();
-  setupClearButton(); // Call the new function
+  setupClearButton(); 
 
 });

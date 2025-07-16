@@ -1,13 +1,7 @@
-// js/document-compare.js
 
-/**
- * This is the main function for our entire application. It will be called only
- * after all necessary libraries, including the Monaco Editor, are fully loaded.
- * This structure prevents all race condition errors.
- */
 function runDocumentComparer() {
 
-  // --- 1. VERIFY LIBRARIES & CONFIGURE ---
+  
   if (typeof window.pdfjsLib === 'undefined' || typeof window.mammoth === 'undefined') {
     alert("A required library (pdf.js or mammoth.js) failed to load. Please check your internet connection and refresh.");
     return;
@@ -15,7 +9,7 @@ function runDocumentComparer() {
   
   window.pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js`;
 
-  // --- 2. GET DOM ELEMENTS ---
+  
   const uploadContainer = document.getElementById('upload-container');
   const resultWrapper = document.getElementById('diffResultWrapper');
   const compareBtn = document.getElementById('compareFilesBtn');
@@ -24,12 +18,12 @@ function runDocumentComparer() {
   const clearDocBtn = document.getElementById('clearDocBtn');
 
 
-  // --- 3. STATE VARIABLES ---
+  
   let file1 = null;
   let file2 = null;
 
-  // --- 4. CREATE THE MONACO DIFF EDITOR ---
-  // Update the Monaco Editor configuration in the runDocumentComparer function
+  
+  
 
 const diffEditor = monaco.editor.createDiffEditor(document.getElementById('documentDiffEditor'), {
   theme: 'vs',
@@ -48,46 +42,46 @@ const diffEditor = monaco.editor.createDiffEditor(document.getElementById('docum
     alwaysConsumeMouseWheel: false
   },
   diffWordWrap: 'on',
-  // These are the key changes to ignore whitespace
+  
   ignoreTrimWhitespace: true,
   renderWhitespace: 'none',
   renderIndentGuides: false,
-  // Customize the diff colors to not highlight whitespace
+  
   diffDecorations: {
     addedLineDecoration: {
       backgroundColor: 'rgba(155, 185, 85, 0.2)',
-      isWholeLine: false // Only highlight the changed text, not whole line
+      isWholeLine: false 
     },
     removedLineDecoration: {
       backgroundColor: 'rgba(255, 0, 0, 0.2)',
-      isWholeLine: false // Only highlight the changed text, not whole line
+      isWholeLine: false 
     },
     modifiedLineDecoration: {
       backgroundColor: 'rgba(255, 255, 0, 0.2)',
-      isWholeLine: false // Only highlight the changed text, not whole line
+      isWholeLine: false 
     }
   }
 });
 
-// Update the normalizeText function to better handle line breaks
+
 function normalizeText(text) {
-  // Standardize line endings and collapse multiple spaces/newlines
+  
   let standardized = text.replace(/\r\n|\r/g, '\n')
-                        .replace(/\n{3,}/g, '\n\n') // Max 2 newlines
+                        .replace(/\n{3,}/g, '\n\n') 
                         .replace(/[ \t]+/g, ' ')
                         .trim();
 
-  // Split into paragraphs (separated by two newlines)
+  
   const paragraphs = standardized.split(/\n{2,}/);
 
-  // Process each paragraph
+  
   const processedParagraphs = paragraphs.map(paragraph => {
-    // Clean up the paragraph
+    
     let cleanParagraph = paragraph.replace(/\n/g, ' ')
                                  .replace(/[ ]+/g, ' ')
                                  .trim();
 
-    // Word wrap to ~80 characters while preserving words
+    
     const words = cleanParagraph.split(' ');
     let currentLine = '';
     const lines = [];
@@ -105,7 +99,7 @@ function normalizeText(text) {
     return lines.join('\n');
   });
 
-  // Join paragraphs with double newlines
+  
   return processedParagraphs.join('\n\n');
 }
     
@@ -143,7 +137,7 @@ function normalizeText(text) {
     }
   };
   
-  // --- 6. ATTACH ALL EVENT LISTENERS ---
+  
   const setupDropZone = (dropZoneId) => {
     const dropZone = document.getElementById(dropZoneId);
     const input = dropZone.querySelector('input[type="file"]');
@@ -177,32 +171,32 @@ function normalizeText(text) {
   setupDropZone('drop-zone-2');
 
   clearDocBtn.addEventListener('click', () => {
-  // Reset file state
+  
   file1 = null;
   file2 = null;
   
-  // Clear file displays
+  
   document.querySelectorAll('.drop-zone__file-display').forEach(el => {
     el.textContent = '';
     el.classList.add('hidden');
   });
   
-  // Show file input content again
+  
   document.querySelectorAll('.drop-zone__content').forEach(el => {
     el.classList.remove('hidden');
   });
   
-  // Clear file inputs
+  
   document.querySelectorAll('.drop-zone input[type="file"]').forEach(el => {
     el.value = '';
   });
   
-  // Reset UI state
+  
   uploadContainer.classList.remove('hidden');
   resultWrapper.classList.add('hidden');
   clearDocBtn.classList.add('hidden');
   
-  // Clear diff editor
+  
   const originalModel = diffEditor.getOriginalEditor().getModel();
   const modifiedModel = diffEditor.getModifiedEditor().getModel();
   diffEditor.setModel({
@@ -210,19 +204,19 @@ function normalizeText(text) {
     modified: monaco.editor.createModel('', 'text/plain')
   });
   
-  // Dispose of old models to prevent memory leaks
+  
   if (originalModel) originalModel.dispose();
   if (modifiedModel) modifiedModel.dispose();
   
-  // Reset counters
+  
   removalsCountEl.textContent = '0 removals';
   additionsCountEl.textContent = '0 additions';
   
-  // Reset compare button
+  
   compareBtn.disabled = true;
 });
 
-// Update the compareBtn click handler to show the clear button when done
+
 compareBtn.addEventListener('click', async () => {
   if (!file1 || !file2) return;
   compareBtn.disabled = true;
@@ -243,7 +237,7 @@ compareBtn.addEventListener('click', async () => {
 
     uploadContainer.classList.add('hidden');
     resultWrapper.classList.remove('hidden');
-    clearDocBtn.classList.remove('hidden'); // Show the clear button
+    clearDocBtn.classList.remove('hidden'); 
   } catch (err) {
     console.error("Comparison failed:", err);
     alert("An error occurred during comparison: " + err.message);
@@ -284,6 +278,6 @@ compareBtn.addEventListener('click', async () => {
   });
 }
 
-// --- GLOBAL ENTRY POINT ---
+
 require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs' } });
 require(['vs/editor/editor.main'], runDocumentComparer);

@@ -25,12 +25,12 @@
 
   <div class="diff-container">
     <section class="file-comparison-section">
-        <!-- The Drop Zones (these will be hidden after upload) -->
+        
         <div id="upload-container">
             <h2>Compare Documents</h2>
             <p class="section-subtitle">Upload a .docx or .pdf file in each panel to see the difference.</p>
             <div class="file-comparison-container">
-                <!-- Drop Zone 1 -->
+                
                 <div class="drop-zone" id="drop-zone-1">
                     <input type="file" id="file1" class="hidden-file-input" accept=".docx,.pdf,.txt" />
                     <div class="drop-zone__content">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="drop-zone__file-display hidden"></div>
                 </div>
-                <!-- Drop Zone 2 -->
+                
                 <div class="drop-zone" id="drop-zone-2">
                     <input type="file" id="file2" class="hidden-file-input" accept=".docx,.pdf,.txt" />
                     <div class="drop-zone__content">
@@ -60,7 +60,7 @@
             <div class="action-buttons align-right">
                 <button id="clearDocBtn" class="secondary-btn">Start New Comparison</button>
             </div>
-            <!-- ▼▼▼ Replaced summary header with stats container ▼▼▼ -->
+            
             <div class="diff-stats-container">
                 <div class="diff-stat removals">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -76,13 +76,13 @@
     </section>
   </div>
 
-  <!-- External Libraries -->
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
 
-  <!-- Your Application Logic -->
+  
   <script type="module" src="./js/document-compare.js"></script>
 </body>
 </html>

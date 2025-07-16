@@ -44,27 +44,25 @@ export function setupFileComparison() {
 
 export function setupClearButton() {
   const clearBtn = document.getElementById('clearBtn');
-  if (!clearBtn) return; // Guard clause in case the button isn't on the page
+  if (!clearBtn) return; 
 
   clearBtn.addEventListener('click', () => {
-    // Clear the two input editors
+    
     window.editor1.setValue('');
     window.editor2.setValue('');
 
-    // Clear the diff editor by setting an empty model
+    
     window.diffEditor.setModel({
       original: monaco.editor.createModel(''),
       modified: monaco.editor.createModel('')
     });
 
-    // Hide the entire result wrapper
+    
     document.getElementById('diffResultWrapper').classList.add('hidden');
   });
 }
 
-/**
- * Sets up the file open buttons for the Monaco editors.
- */
+
 export function setupEditorFileOpeners() {
   /**
    * Helper to connect a button, a hidden file input, and an editor instance.
@@ -76,28 +74,28 @@ export function setupEditorFileOpeners() {
     const openFileBtn = document.getElementById(buttonId);
     const fileInput = document.getElementById(inputId);
 
-    // When the "Open File" button is clicked, programmatically click the hidden file input.
+    
     openFileBtn.addEventListener('click', () => fileInput.click());
 
-    // When a file is selected in the file dialog...
+    
     fileInput.addEventListener('change', async (event) => {
       const file = event.target.files[0];
       if (!file) {
-        return; // No file selected
+        return; 
       }
       try {
         const text = await readFileAsText(file);
-        editor.setValue(text); // Load the file content into the editor.
+        editor.setValue(text); 
       } catch (err) {
         console.error("Error reading file:", err);
         alert("Failed to read the selected file.");
       }
-      // Reset the input value to allow opening the same file again
+      
       event.target.value = '';
     });
   };
 
-  // Connect the components for both editors
+  
   connectComponents('openFile1', 'fileInput1', window.editor1);
   connectComponents('openFile2', 'fileInput2', window.editor2);
 }

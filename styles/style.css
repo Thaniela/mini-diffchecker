@@ -4,10 +4,10 @@
   --background-light: #ffffff;
   --text-dark: #222;
   --border-color: #d0d7de;
-  --addition-bg-light: rgba(22, 163, 74, 0.1); /* Lighter green for whole line */
-  --addition-bg-strong: rgba(22, 163, 74, 0.25); /* Stronger green for word */
-  --removal-bg-light: rgba(220, 53, 69, 0.1); /* Lighter red for whole line */
-  --removal-bg-strong: rgba(220, 53, 69, 0.25); /* Stronger red for word */
+  --addition-bg-light: rgba(22, 163, 74, 0.1); 
+  --addition-bg-strong: rgba(22, 163, 74, 0.25); 
+  --removal-bg-light: rgba(220, 53, 69, 0.1); 
+  --removal-bg-strong: rgba(220, 53, 69, 0.25); 
 }
 
 .hidden {
@@ -16,35 +16,35 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: #fdfdfd;/* I used the more specific body rule you had below */
-  margin: 0; /* Changed from 40px to 0 to allow the header to be full-width */
+  background: #fdfdfd;
+  margin: 0; 
   padding: 0;
   overflow-x: hidden;
   color: var(--text-dark);
 }
 
-/* ▼▼▼ ADD THESE NEW HEADER STYLES ▼▼▼ */
+
 
 .main-header {
   background-color: var(--primary-blue);
   color: white;
-  padding: 10px 40px; /* Provides spacing on the sides */
+  padding: 10px 40px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Adds space between header and the "Mini Diffchecker" H1 */
+  margin-bottom: 20px; 
 }
 
 .header-content {
   display: flex;
-  justify-content: space-between; /* This pushes the logo and nav to opposite ends */
+  justify-content: space-between; 
   align-items: center;
-  max-width: 1200px; /* Optional: keeps content aligned with the rest of the page */
+  max-width: 1200px; 
   margin: 0 auto;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  text-decoration: none; /* Removes underline from the link */
+  text-decoration: none; 
   color: white;
 }
 
@@ -59,7 +59,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  margin-right: 15px; /* Space between logo and text */
+  margin-right: 15px; 
 }
 
 .system-name {
@@ -70,29 +70,29 @@ body {
 .main-nav ul {
   margin: 0;
   padding: 0;
-  list-style: none; /* Removes bullet points */
+  list-style: none; 
   display: flex;
-  gap: 25px; /* Space between nav items */
+  gap: 25px; 
 }
 
 .main-nav a {
   color: white;
   text-decoration: none;
   font-size: 1em;
-  padding: 8px 16px; /* Gives the links a larger, button-like click area */
-  border-radius: 5px; /* Adds rounded corners to all links */
+  padding: 8px 16px; 
+  border-radius: 5px; 
 }
 
-/* 2. Hover effect for non-active links */
+
 .main-nav a:hover {
-  background-color: rgba(255, 255, 255, 0.15); /* Subtle highlight on hover */
+  background-color: rgba(255, 255, 255, 0.15); 
 }
 
-/* 3. The highlighted white box for the active link */
+
 .main-nav .active-nav {
   background-color: white;
-  color: var(--primary-blue); /* Use your theme's blue for the text */
-  font-weight: 500; /* A slightly bolder font looks good */
+  color: var(--primary-blue); 
+  font-weight: 500; 
 }
 
 h1 {
@@ -132,17 +132,17 @@ h2 {
 }
 
 .editor-header h2 {
-  margin: 0; /* Reset margin for alignment */
+  margin: 0; 
 }
 
 .editor {
   width: 100%;
   height: 300px;
-  border: 2px solid rgba(46, 134, 222, 0.3); /* ✅ 20% opacity */
+  border: 2px solid rgba(46, 134, 222, 0.3); 
   border-radius: 4px;
   box-sizing: border-box;
   transition: border-color 0.2s;
-  overflow: hidden; /* <-- ADD THIS LINE */
+  overflow: hidden; 
 }
 
 .diff-viewer {
@@ -152,7 +152,7 @@ h2 {
   margin-top: 20px;
   margin-bottom: 30px;
   border: 1px solid #ccc;
-  overflow: hidden; /* <-- ADD THIS LINE */
+  overflow: hidden; 
 }
 
 button {
@@ -166,19 +166,19 @@ button {
 }
 
 button:hover {
-  background: #1965b3; /* Slightly darker blue on hover */
+  background: #1965b3; 
 }
 
 .action-buttons {
   display: flex;
-  justify-content: center; /* Center buttons by default */
+  justify-content: center; 
   gap: 10px;
-  margin-top: 20px; /* Increased top margin */
-  margin-bottom: 20px; /* Added consistent bottom margin */
+  margin-top: 20px; 
+  margin-bottom: 20px; 
 }
 
 .action-buttons.align-right {
-    justify-content: flex-end; /* Aligns the button to the right */
+    justify-content: flex-end; 
 }
 
 .secondary-btn {
@@ -287,7 +287,7 @@ button:hover {
   color: #2E86DE;
 }
 
-/* Styles for the main "Find Difference" button area */
+
 .compare-files-wrapper {
   text-align: center;
   margin-top: 20px;
@@ -296,10 +296,10 @@ button:hover {
 
 #result-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 320px; /* Three columns */
+  grid-template-columns: 1fr 1fr 320px; 
   gap: 15px;
   width: 100%;
-  height: calc(100vh - 150px); /* Fill the vertical space */
+  height: calc(100vh - 150px); 
 }
 
 .document-viewer, .changes-sidebar {
@@ -354,13 +354,13 @@ button:hover {
   background: #fafafa;
 }
 
-/* Colors for Added/Removed */
+
 .change-item.added .change-header {
-  background-color: #e8f5e9; /* Light Green */
+  background-color: #e8f5e9; 
   color: #2e7d32;
 }
 .change-item.removed .change-header {
-  background-color: #ffebee; /* Light Red */
+  background-color: #ffebee; 
   color: #c62828;
 }
 
@@ -368,18 +368,18 @@ button:hover {
     padding: 20px;
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    white-space: pre-wrap; /* Preserves whitespace and wraps lines */
+    white-space: pre-wrap; 
     word-wrap: break-word;
 }
 
 .diff-html-wrapper del {
-    background-color: #ffebee; /* Light Red */
+    background-color: #ffebee; 
     color: #c62828;
     text-decoration: line-through;
 }
 
 .diff-html-wrapper ins {
-    background-color: #e8f5e9; /* Light Green */
+    background-color: #e8f5e9; 
     color: #2e7d32;
     text-decoration: none;
 }
@@ -387,8 +387,8 @@ button:hover {
 .diff-stats-container {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px; /* Horizontal padding */
-    margin-bottom: 10px; /* Space between stats and the diff viewer */
+    padding: 0 10px; 
+    margin-bottom: 10px; 
 }
 
 .diff-stat {
@@ -399,15 +399,15 @@ button:hover {
   font-weight: 500;
 }
 
-/* UPDATED: Diff viewer with a full border */
+
 .diff-viewer {
   width: 100%;
   height: auto;
   min-height: 150px;
-  margin-top: 10px; /* Space from the stats above */
+  margin-top: 10px; 
   margin-bottom: 30px;
   border: 1px solid #ccc;
-  border-radius: 6px; /* Round all corners */
+  border-radius: 6px; 
   overflow: hidden;
 }
 
