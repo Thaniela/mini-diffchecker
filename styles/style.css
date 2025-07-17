@@ -21,6 +21,7 @@ body {
   padding: 0;
   overflow-x: hidden;
   color: var(--text-dark);
+  
 }
 
 
@@ -210,7 +211,7 @@ button:hover {
   text-align: center;
   color: #616161;
   margin-top: -10px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .file-comparison-container {
