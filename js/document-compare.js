@@ -65,20 +65,20 @@ const diffEditor = monaco.editor.createDiffEditor(document.getElementById('docum
 
 
 function normalizeText(text) {
-  // Standardize line endings to a single newline character
+  
   let standardized = text.replace(/\r\n|\r/g, '\n');
 
-  // Split the text into an array of lines
+  
   const lines = standardized.split('\n');
 
-  // Process each line to normalize whitespace
+  
   const processedLines = lines.map(line => {
-    // Replace multiple consecutive spaces with a single space, 
-    // and then trim any leading or trailing whitespace from the line.
+    
+    
     return line.replace(/[ \t]+/g, ' ').trim();
   });
 
-  // Join the lines back together. This preserves the original number of lines.
+  
   return processedLines.join('\n');
 }
     
@@ -94,29 +94,29 @@ function normalizeText(text) {
       const page = await pdf.getPage(i);
       const textContent = await page.getTextContent();
       
-      // --- START: MODIFIED PDF TEXT EXTRACTION LOGIC ---
+      
 
       let lastY;
       let pageText = '';
       for (let item of textContent.items) {
-        // If the vertical position (item.transform[5]) is different from the last item,
-        // and we have processed at least one item, we insert a newline character.
+        
+        
         if (lastY !== undefined && item.transform[5] !== lastY) {
           pageText += '\n';
         }
         pageText += item.str;
         lastY = item.transform[5];
       }
-      // Add the processed text from the page to our full document text.
+      
       allText += pageText + '\n';
-      // --- END: MODIFIED PDF TEXT EXTRACTION LOGIC ---
+      
     }
     return allText;
   }
 
   if (extension === 'docx') {
     const arrayBuffer = await file.arrayBuffer();
-    // Mammoth.js is generally good at preserving paragraph breaks.
+    
     const result = await window.mammoth.extractRawText({ arrayBuffer });
     return result.value;
   }
