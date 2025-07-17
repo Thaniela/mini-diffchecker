@@ -12,6 +12,7 @@ require(['vs/editor/editor.main'], function () {
     minimap: { enabled: false },
     wordWrap: 'on',
     renderIndicators: false,
+    stickyScroll: { enabled: false },
     scrollBeyondLastLine: true,
     largeFileOptimizations: true,
     maxTokenizationLineLength: 20000,
@@ -26,6 +27,7 @@ require(['vs/editor/editor.main'], function () {
     minimap: { enabled: false },
     wordWrap: 'on',
     renderIndicators: false,
+    stickyScroll: { enabled: false },
     scrollBeyondLastLine: true,
     largeFileOptimizations: true,
   maxTokenizationLineLength: 20000,
@@ -46,6 +48,7 @@ require(['vs/editor/editor.main'], function () {
     folding: false,
     glyphMargin: false,
     fixedOverflowWidgets: true,
+    stickyScroll: { enabled: false },
     smoothScrolling: true,
     scrollbar: {
       vertical: 'auto',
