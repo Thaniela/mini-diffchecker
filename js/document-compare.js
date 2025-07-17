@@ -65,71 +65,72 @@ const diffEditor = monaco.editor.createDiffEditor(document.getElementById('docum
 
 
 function normalizeText(text) {
-  
-  let standardized = text.replace(/\r\n|\r/g, '\n')
-                        .replace(/\n{3,}/g, '\n\n') 
-                        .replace(/[ \t]+/g, ' ')
-                        .trim();
+  // Standardize line endings to a single newline character
+  let standardized = text.replace(/\r\n|\r/g, '\n');
 
-  
-  const paragraphs = standardized.split(/\n{2,}/);
+  // Split the text into an array of lines
+  const lines = standardized.split('\n');
 
-  
-  const processedParagraphs = paragraphs.map(paragraph => {
-    
-    let cleanParagraph = paragraph.replace(/\n/g, ' ')
-                                 .replace(/[ ]+/g, ' ')
-                                 .trim();
-
-    
-    const words = cleanParagraph.split(' ');
-    let currentLine = '';
-    const lines = [];
-    
-    for (const word of words) {
-      if (currentLine.length + word.length + 1 > 80) {
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine += (currentLine.length ? ' ' : '') + word;
-      }
-    }
-    if (currentLine) lines.push(currentLine);
-    
-    return lines.join('\n');
+  // Process each line to normalize whitespace
+  const processedLines = lines.map(line => {
+    // Replace multiple consecutive spaces with a single space, 
+    // and then trim any leading or trailing whitespace from the line.
+    return line.replace(/[ \t]+/g, ' ').trim();
   });
 
-  
-  return processedParagraphs.join('\n\n');
+  // Join the lines back together. This preserves the original number of lines.
+  return processedLines.join('\n');
 }
     
   async function extractTextFromFile(file) {
-    const extension = file.name.split('.').pop().toLowerCase();
-    if (extension === 'pdf') {
-      const arrayBuffer = await file.arrayBuffer();
-      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-      let allText = '';
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
-        allText += textContent.items.map(item => item.str).join(' ') + '\n';
+  const extension = file.name.split('.').pop().toLowerCase();
+
+  if (extension === 'pdf') {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    let allText = '';
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      
+      // --- START: MODIFIED PDF TEXT EXTRACTION LOGIC ---
+
+      let lastY;
+      let pageText = '';
+      for (let item of textContent.items) {
+        // If the vertical position (item.transform[5]) is different from the last item,
+        // and we have processed at least one item, we insert a newline character.
+        if (lastY !== undefined && item.transform[5] !== lastY) {
+          pageText += '\n';
+        }
+        pageText += item.str;
+        lastY = item.transform[5];
       }
-      return allText;
+      // Add the processed text from the page to our full document text.
+      allText += pageText + '\n';
+      // --- END: MODIFIED PDF TEXT EXTRACTION LOGIC ---
     }
-    if (extension === 'docx') {
-      const arrayBuffer = await file.arrayBuffer();
-      const result = await window.mammoth.extractRawText({ arrayBuffer });
-      return result.value;
-    }
-    if (extension === 'txt') {
-      return new Promise(resolve => {
-        const reader = new FileReader();
-        reader.onload = e => resolve(e.target.result);
-        reader.readAsText(file);
-      });
-    }
-    throw new Error('Unsupported file type: ' + extension);
+    return allText;
   }
+
+  if (extension === 'docx') {
+    const arrayBuffer = await file.arrayBuffer();
+    // Mammoth.js is generally good at preserving paragraph breaks.
+    const result = await window.mammoth.extractRawText({ arrayBuffer });
+    return result.value;
+  }
+
+  if (extension === 'txt') {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+      reader.readAsText(file);
+    });
+  }
+
+  throw new Error('Unsupported file type: ' + extension);
+}
 
   const checkFilesAndEnableButton = () => {
     if (file1 && file2) {
